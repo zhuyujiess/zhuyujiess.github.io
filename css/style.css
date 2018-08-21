@@ -297,13 +297,10 @@ hr.small {
 .post-tags,
 .post-categories {
   font-size: 15px;
-  margin-top: 30px;
-  margin-bottom: 30px;
 }
 .post-tags a,
 .post-categories a {
   border-bottom: 1px dotted #ababab;
-  text-transform: uppercase;
   margin-right: 10px;
 }
 .post-tags a:hover,
@@ -314,6 +311,21 @@ hr.small {
 .post-categories a:active {
   text-decoration: none;
   border-bottom: none;
+}
+.post-tags .zhuyujiess-tag,
+.post-categories .zhuyujiess-tag {
+  display: inline-block;
+  background-color: #7da9d4;
+  border: none;
+  border-radius: 999em;
+  padding: 0 10px;
+  color: #fff;
+  line-height: 24px;
+  font-size: 12px;
+  text-decoration: none;
+  margin: 0 1px;
+  margin-bottom: 6px;
+  font-size: 14px;
 }
 .archive-before-pagination {
   height: 30px;
