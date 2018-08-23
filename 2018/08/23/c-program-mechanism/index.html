@@ -203,7 +203,7 @@
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <p>1972年，贝尔实验室的丹尼斯·里奇和肯·汤普逊在开发UNIX操作系统时设计了C语言。从那时开始，C语言已经从其位于贝尔室验室的发源地传播到世界各地，它已经成为全球程序员的公共语言。<br><a id="more"></a>
-尽管在过去的20多年里，许多人都从C语言转而使用其他编程语言（如C++、Java等），但因为C语言具有汇编语言才具有的微调控能力、与UNIX系统的紧密联系等优点，使得其在40多年后的今天依然经久不衰。如果要在我的工作技术栈之外掌握一门新的语言，毫无疑问C语言是我的首选。本文将简单介绍一下C语言的编程机制，为以后的额深入学习打下坚实的基础。</p>
+尽管在过去的20多年里，许多人都从C语言转而使用其他编程语言（如C++、Java等），但因为C语言具有汇编语言才具有的微调控能力、与UNIX系统的紧密联系等优点，使得其在40多年后的今天依然经久不衰。如果要在我的工作技术栈之外掌握一门新的语言，毫无疑问C语言是我的首选。本文将简单介绍一下C语言的编程机制，为以后的深入学习打下坚实的基础。</p>
 <p>用C语言编写程序时，编写的内容被存储在文本文件中，该文件被称为<em>源代码文件</em>。大部分C系统，都要求文件名以.c结尾，下面是<code>hello.c</code>文件的源代码：
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">    printf(&quot;hello world!&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>C编程的基本策略是，用程序把源代码文件转换为可执行文件。典型的C实现通过<em>编译</em>和<em>链接</em>两个步骤来完成这一过程。<em>编译器把源代码转换成中间代码，链接器把中间代码和其他代码合并</em>，生成可执行文件。<br>
@@ -238,7 +238,20 @@ ELF规范把ELF文件宽泛地称为<em>目标文件</em>，这与上文提到�
 <img src="http://oqvcferhi.bkt.clouddn.com/elf-table.png" alt="ELF文件格式" title="ELF文件格式">
 ELF文件头（ELF header）位于文件的最开始处，包含有整个文件的结构信息。节（section）是专用于连接过程而言的，在每个”节“中包含有指令数据、符号数据、重定位数据等等。程序头表（programheader table）在运行过程中是必须的，在
 链接过程中是可选的，因为它的作用是告诉系统如何创建进程的镜像。节头表包含有文件中所有”节“的信息。在链接视图中，”节头表“是必须存在的。</p>
-<p>说了这么多似乎有点偏题了</p>
+<p>由于篇幅所限，关于ELF文件相关的内容只能介绍这么多，现在让我们回归到要解的问题上去。刚才我们说过查看<code>a.out</code>文件内容就是查看ELF文件内容，而查看ELF文件内容我们可以使用<code>readelf</code>相关命令。现在我们通过以下命令查看<code>a.out</code>文件内容：
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">readelf -a a.out</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://oqvcferhi.bkt.clouddn.com/readelf-a.png" alt="readelf查看内容" title="readelf查看内容">
+除了使用readel命令查看ELF文件，我们还可以使用<code>objdump</code>命令.那么readelf命令和objdump命令的区别是什么呢，参考quora上一位网友的回复：<br>
+<em>The readelf program can dump all the information in an ELF file. ELF is the object file format used on pretty much all modern operating systems, except for Windows and Mac OS.
+The objdump program can dump generic information from a file in (almost) any object file format, including ELF but also including COFF/PE (used on Windows), Mach-O (used on Mac OS), S-records, IHEX, etc. It can dump some file-format-specific information, but not all.
+So if you know you have an ELF file, use readelf. If you don’t know, use objdump.</em></p>
+<p>一部分人看到这些命令后也许就有些不耐烦了，我只是想打开文件看看里面长啥样，你给我介绍一堆其他命令，就没有简单粗暴一点的解决方案吗？这个真的可以有，我们可以用<code>ht editor</code>直接打开这些可执行文件。在mac下我们可以通过下面命令安装<code>ht editor</code>:
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install ht</span><br></pre></td></tr></table></figure></p>
+<p>在命令行中输入ht进入ht editor的编辑界面,通过f3打开文件，显示结果如下：
+<img src="http://oqvcferhi.bkt.clouddn.com/ht-editor.png" alt="a.out文件内容" title="a.out文件内容"></p>
+<p>说了半天都是关于<code>a.out</code>文件，上文我们提到过编译器最开始是生成目标代码的，其拓展名是<code>.o</code>。然而我们在编译代码的过程中却没看到这个后缀为<code>.o</code>的文件，这是因为一旦连接器生成了完整的可执行程序，就会将其删除。如果我们可以通过以下命令生成目标代码：
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -c hello.c</span><br></pre></td></tr></table></figure></p>
+<p>这时你在当前目录就会生成<code>hello.o</code>文件，因为目标文件也是ELF文件的一种，赶快用上面介绍的几种方法打开看看吧。</p>
 
 
                 
