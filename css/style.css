@@ -458,6 +458,23 @@ img::-moz-selection {
 body {
   webkit-tap-highlight-color: #0085a1;
 }
+.tags-container {
+  display: inline-block;
+}
+.tags-container .tag-item {
+  display: inline-block;
+  background-color: #7da9d4;
+  border: none;
+  border-radius: 999em;
+  padding: 0 15px;
+  color: #fff;
+  line-height: 28px;
+  font-size: 16px;
+  text-decoration: none;
+  margin: 0 8px;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
 article .container .row img {
   max-width: 100% !important;
   height: auto;
